@@ -18,14 +18,12 @@ class AnalyzeGraphQl
     }
 
     /**
-     * @param string $extensionName
+     * @param string $extensionDir
      * @return \stdClass
      */
-    public function execute(string $extensionName): \stdClass
+    public function execute(string $extensionDir): \stdClass
     {
         $result = new \stdClass();
-        $extensionDir = $this->projectDir . "/../" . $extensionName;
-
         $finder = new Finder();
         $finder->in($extensionDir . "/etc")->depth(0)->files()->name("schema.graphqls");
         if ($finder->count() === 0) {

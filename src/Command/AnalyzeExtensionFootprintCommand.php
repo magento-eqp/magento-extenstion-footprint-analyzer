@@ -54,7 +54,7 @@ class AnalyzeExtensionFootprintCommand extends Command
     protected function configure()
     {
         $this->setDescription("Analyze Magento extension footprint");
-        $this->addArgument('extension-name', InputArgument::REQUIRED, "Extension to analyze");
+        $this->addArgument("extension-directory", InputArgument::REQUIRED, "Path to extension files to be analyzed");
         $this->addOption("report-file", null, InputOption::VALUE_REQUIRED);
         $this->addOption("json");
     }
@@ -63,24 +63,23 @@ class AnalyzeExtensionFootprintCommand extends Command
      * @inheritDoc
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $extensionName = $input->getArgument("extension-name");
+        $extensionPath = $input->getArgument("extension-directory");
         $result = [];
 
         try {
-            $result = array_merge($result, (array) $this->analyzeProgrammaticApi->execute($extensionName));
-            $result = array_merge($result, (array) $this->analyzeWebapi->execute($extensionName));
-            $result = array_merge($result, (array) $this->analyzeGraphQl->execute($extensionName));
+            $result = array_merge($result, (array) $this->analyzeProgrammaticApi->execute($extensionPath));
+            $result = array_merge($result, (array) $this->analyzeWebapi->execute($extensionPath));
+            $result = array_merge($result, (array) $this->analyzeGraphQl->execute($extensionPath));
 
             if ($input->getOption("json")) {
-                $output->writeln(json_encode([$extensionName => $result], JSON_PRETTY_PRINT));
+                $output->writeln(json_encode($result, JSON_PRETTY_PRINT));
                 if ($input->getOption("report-file")) {
                     file_put_contents(
                             $input->getOption("report-file"),
-                            json_encode([$extensionName => $result])
+                            json_encode($result)
                     );
                 }
             } else {
-                $output->writeln($extensionName);
                 foreach ($result as $key => $value) {
                     $output->writeln(sprintf(" - %s: %s", $key, $value));
                 }
