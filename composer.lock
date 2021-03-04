@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e70fca3fd2742f5a1ca8b65e65ffe10",
+    "content-hash": "3ad161ce38129e81bfd51e1ede9bb5c5",
     "packages": [
         {
             "name": "psr/cache",
@@ -534,6 +534,62 @@
                 }
             ],
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
+            "homepage": "https://symfony.com",
+            "time": "2021-01-27T09:09:26+00:00"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "v4.4.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "21032c566558255e551d23f4a516434c9e3a9a78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/21032c566558255e551d23f4a516434c9e3a9a78",
+                "reference": "21032c566558255e551d23f4a516434c9e3a9a78",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "conflict": {
+                "masterminds/html5": "<2.6"
+            },
+            "require-dev": {
+                "masterminds/html5": "^2.6",
+                "symfony/css-selector": "^3.4|^4.0|^5.0"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
             "time": "2021-01-27T09:09:26+00:00"
         },
@@ -2003,7 +2059,8 @@
     "platform": {
         "php": ">=7.1.3",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
