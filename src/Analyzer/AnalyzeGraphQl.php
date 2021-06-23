@@ -25,16 +25,24 @@ class AnalyzeGraphQl
     {
         $result = new \stdClass();
         $finder = new Finder();
-        $finder->in($extensionDir . "/etc")->depth(0)->files()->name("schema.graphqls");
-        if ($finder->count() === 0) {
+
+        try {
+            $finder->in($extensionDir . "/etc")->depth(0)->files()->name("schema.graphqls");
+            if ($finder->count() === 0) {
+                $result->graphql = 0;
+                return $result;
+            }
+            $contents = iterator_to_array($finder, false)[0]->getContents();
+
+            $result->graphql = 1;
+            $result->graphqlTypes = preg_match_all("/type \w+ {/", $contents);
+            $result->graphqlInputs = preg_match_all("/input \w+ {/", $contents);
+            return $result;
+        } catch (\Exception $exception) {
             $result->graphql = 0;
             return $result;
+        } finally {
+            unset($finder);
         }
-        $contents = iterator_to_array($finder, false)[0]->getContents();
-
-        $result->graphql = 1;
-        $result->graphqlTypes = preg_match_all("/type \w+ {/", $contents);
-        $result->graphqlInputs = preg_match_all("/input \w+ {/", $contents);
-        return $result;
     }
 }
